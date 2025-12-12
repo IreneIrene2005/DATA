@@ -393,13 +393,11 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="index.php?page=registration_list">
+              <i class="bi bi-circle"></i><span>Registration List</span>
             </a>
           </li>
-    
-          </li>
-          <li>
+            <li>
             <a href="index.php?page=registration_form" class="active">
               <i class="bi bi-circle"></i><span>Registration Form</span>
 
@@ -557,6 +555,9 @@
             break;
             case 'registration_form':
             include 'modules/registration_form.php';
+            break;
+             case 'registration_list':
+            include 'modules/registration_list.php';
             break;
         }
     }
