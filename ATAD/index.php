@@ -1,3 +1,25 @@
+<?php
+ob_start();
+session_start();
+
+// get page
+$page = $_GET['page'] ?? 'login';
+
+// IF NOT LOGGED IN → force login page
+if (!isset($_SESSION['user_id']) && $page !== 'login') {
+    header("Location: index.php?page=login");
+    exit;
+}
+
+// IF LOGGED IN → prevent going back to login
+if (isset($_SESSION['user_id']) && $page === 'login') {
+    header("Location: index.php?page=events");
+    exit;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -393,14 +415,43 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="index.php?page=registration_list">
-              <i class="bi bi-circle"></i><span>Registration List</span>
+            <a href="index.php?page=login">
+              <i class="bi bi-circle"></i><span>Login</span>
+            </a>
+          </li>
+          <li>
+            <a href="index.php?page=events">
+              <i class="bi bi-circle"></i><span>Events</span>
             </a>
           </li>
             <li>
             <a href="index.php?page=registration_form" class="active">
               <i class="bi bi-circle"></i><span>Registration Form</span>
-
+            </a>
+          </li>
+          <li>
+            <a href="index.php?page=payments">
+              <i class="bi bi-circle"></i><span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="index.php?page=participant">
+              <i class="bi bi-circle"></i><span>Participant List</span>
+            </a>
+          </li>
+          <li>
+            <a href="index.php?page=schedule">
+              <i class="bi bi-circle"></i><span>Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="index.php?page=feedback">
+              <i class="bi bi-circle"></i><span>Feedback</span>
+            </a>
+          </li>
+          <li>
+            <a href="index.php?page=notification">
+              <i class="bi bi-circle"></i><span>Notification</span>
             </a>
           </li>
         </ul>
@@ -538,31 +589,56 @@
 
        
         <div class="col-lg-8">
-          <div class="card">
-            <div class="card-body">
-              <?php
-            if (isset($_GET['page'])){
-        $page=$_GET['page'];
-        switch ($page){
-            case 'london':
-            include 'modules/london.php';
-            break;
-            case 'paris':
-            include 'modules/paris.php';
-            break;
-            case 'tokyo':
-            include 'modules/tokyo.php';
-            break;
-            case 'registration_form':
-            include 'modules/registration_form.php';
-            break;
-             case 'registration_list':
-            include 'modules/registration_list.php';
-            break;
-        }
-    }
+  <div class="card">
+    <div class="card-body">
 
+<?php
+$page = $_GET['page'] ?? 'login';
+
+switch ($page) {
+
+    case 'login':
+        include 'modules/login.php';
+        break;
+
+    case 'events':
+        include 'modules/events.php';
+        break;
+
+    case 'registration_form':
+        include 'modules/registration_form.php';
+        break;
+
+    case 'participant':
+        include 'modules/participant.php';
+        break;
+
+    case 'payments':
+        include 'modules/payments.php';
+        break;
+
+    case 'schedule':
+        include 'modules/schedule.php';
+        break;
+
+        case 'feedback':
+        include 'modules/feedback.php';
+        break;
+
+        case 'notification':
+        include 'modules/notification.php';
+        break;
+
+    default:
+        include 'modules/login.php';
+}
 ?>
+
+    </div>
+  </div>
+</div>
+
+
 
             
           
